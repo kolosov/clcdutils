@@ -1,0 +1,3 @@
+[submodule "sig-core-livemedia"]
+	path = sig-core-livemedia
+	url = https://github.com/kolosov/sig-core-livemedia.git
