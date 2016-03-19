@@ -27,8 +27,8 @@ function patch_config {
   echo "New docker path is $1"
   new_dock_dir=$1
   #enable docker settings
-  #sed "s~ExecStart=\/usr\/bin\/docker daemon -H fd:\/\/~ExecStart=\/usr\/bin\/docker daemon -H fd:\/\/ -G $new_dock_dir~" /tmp/docker.service
-  sed -i "s~ExecStart=\/usr\/bin\/docker daemon -H fd:\/\/~ExecStart=\/usr\/bin\/docker daemon -H fd:\/\/ -G $new_dock_dir~" /usr/lib/systemd/system/docker.service
+  #sed "s~ExecStart=\/usr\/bin\/docker daemon -H fd:\/\/~ExecStart=\/usr\/bin\/docker daemon -H fd:\/\/ -g $new_dock_dir~" /tmp/docker.service
+  sed -i "s~ExecStart=\/usr\/bin\/docker daemon -H fd:\/\/~ExecStart=\/usr\/bin\/docker daemon -H fd:\/\/ -g $new_dock_dir~" /usr/lib/systemd/system/docker.service
   systemctl daemon-reload
   systemctl start docker
 }
