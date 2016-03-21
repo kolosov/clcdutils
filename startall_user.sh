@@ -1,6 +1,7 @@
 #!/bin/sh
 
-sudo /usr/bin/predocker.sh
+echo "Start sudo predocker" >> /tmp/log1
+sudo /usr/bin/predocker.sh >> /tmp/pre.log 2>&1
 
 #RET_VAR=$?
 if [ $? -eq 0 ]
