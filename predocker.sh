@@ -3,6 +3,8 @@
 mark_dir=
 mark_filename="USEME"
 
+echo "Starting predocker" >> /tmp/log2
+
 while getopts ":d:" opt
 do
   case $opt in
@@ -53,22 +55,27 @@ function find_docker_dir_by_filelist {
   return 1
 }
 
+echo "Starting processing" >> /tmp/log2
 
 if [[ -z "$mark_dir" ]]
 then
+  echo "Dir was not set, try looking for the dir" >> /tmp/log2
   echo "Dir was not set, try looking for the dir"
   echo "1. Checking for already mounted drives"
   df | awk '{print $6}' |sort|uniq > /tmp/mounted_dirs1
 
 #  mlist=`cat /tmp/mounted_dirs`
 
+  echo "Find for /tmp/mounted_dirs1" >> /tmp/log2
   echo "Find for /tmp/mounted_dirs1"
   found_place=$(find_docker_dir_by_filelist "/tmp/mounted_dirs1")
   ret_val=$?
+  echo "found_place = $found_place" >> /tmp/log2
   echo "found_place = $found_place"
   if [ "$ret_val" -eq "0" ]
   then
     echo "Dir was found, patching"
+    echo "Dir was found, patching" >> /tmp/log2
     patch_config $found_place
 
     exit 0
@@ -77,6 +84,7 @@ then
   
 
   echo "2. Looking for unmounted drives and mount"
+  echo "2. Looking for unmounted drives and mount" >> /tmp/log2
   #get mounted
   mount | cut -d\  -f 1|sort|uniq > /tmp/mounted_disks
 
